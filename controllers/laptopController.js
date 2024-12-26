@@ -48,4 +48,32 @@ const updateLaptop = async (req, res) => {
   }
 };
 
-module.exports = { getAllLaptops, getLaptopById, addNewLaptop, updateLaptop };
+const deleteLaptop = async (req, res) => {
+  try {
+    const laptop = await LaptopModel.findByIdAndDelete(req.params.id);
+    if (!laptop) {
+      return res.status(404).json({ message: "Laptop not found" });
+    }
+    res.status(200).json({ message: "Laptop deleted" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const getUnassigned = async (req, res) => {
+  try {
+    const laptops = await LaptopModel.find({ status: "available" });
+    res.json(laptops).status(200);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+module.exports = {
+  getAllLaptops,
+  getLaptopById,
+  addNewLaptop,
+  updateLaptop,
+  getUnassigned,
+};

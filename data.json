@@ -1,37 +1,35 @@
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2ZDQyZmQ2N2EwYmQxYTIyYjEwZjkyIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTczNTIxNDAxNX0.FpS2hkKetMJ67BYJq4LjwYnNFnOsIaTaZaA-RXcfWFA",
+  "message": "Login successful"
+}
+//unassigned laptops
 [
   {
-    "brand": "Dell",
-    "model": "XPS 13",
-    "serialNumber": "12345ABC",
-    "status": "available",
-    "purchaseDate": "2022-01-15"
-  },
-  {
+    "_id": "676d32f478e374a66af48b09",
     "brand": "Apple",
     "model": "MacBook Pro",
     "serialNumber": "67890XYZ",
     "status": "available",
-    "purchaseDate": "2021-11-20"
+    "purchaseDate": "2021-11-20T00:00:00.000Z",
+    "createdAt": "2024-12-26T10:41:56.713Z",
+    "updatedAt": "2024-12-26T10:41:56.713Z",
+    "__v": 0
   },
   {
-    "brand": "HP",
-    "model": "Spectre x360",
-    "serialNumber": "11223DEF",
-    "status": "maintenance",
-    "purchaseDate": "2020-05-30"
-  },
-  {
+    "_id": "676d330b78e374a66af48b0d",
     "brand": "Lenovo",
     "model": "ThinkPad X1 Carbon",
     "serialNumber": "44556GHI",
     "status": "available",
-    "purchaseDate": "2021-07-10"
-  },
-  {
-    "brand": "Asus",
-    "model": "ZenBook 14",
-    "serialNumber": "77889JKL",
-    "status": "available",
-    "purchaseDate": "2022-03-25"
+    "purchaseDate": "2021-07-10T00:00:00.000Z",
+    "createdAt": "2024-12-26T10:42:19.514Z",
+    "updatedAt": "2024-12-26T10:42:19.514Z",
+    "__v": 0
   }
 ]
+
+//assiging the token to the variable
+{
+  "laptop":"676d331678e374a66af48b0f",
+  "employee":"676d5288c184b194f0d9ddc5"
+}
