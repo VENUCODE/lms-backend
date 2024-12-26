@@ -1,0 +1,37 @@
+[
+  {
+    "brand": "Dell",
+    "model": "XPS 13",
+    "serialNumber": "12345ABC",
+    "status": "available",
+    "purchaseDate": "2022-01-15"
+  },
+  {
+    "brand": "Apple",
+    "model": "MacBook Pro",
+    "serialNumber": "67890XYZ",
+    "status": "available",
+    "purchaseDate": "2021-11-20"
+  },
+  {
+    "brand": "HP",
+    "model": "Spectre x360",
+    "serialNumber": "11223DEF",
+    "status": "maintenance",
+    "purchaseDate": "2020-05-30"
+  },
+  {
+    "brand": "Lenovo",
+    "model": "ThinkPad X1 Carbon",
+    "serialNumber": "44556GHI",
+    "status": "available",
+    "purchaseDate": "2021-07-10"
+  },
+  {
+    "brand": "Asus",
+    "model": "ZenBook 14",
+    "serialNumber": "77889JKL",
+    "status": "available",
+    "purchaseDate": "2022-03-25"
+  }
+]
