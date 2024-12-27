@@ -1,4 +1,4 @@
-const { AssignmentModel, LaptopModel,LogModel } = require("../models/index");
+const { AssignmentModel, LaptopModel, LogModel } = require("../models/index");
 
 const assignLaptop = async (req, res) => {
   try {
@@ -9,7 +9,9 @@ const assignLaptop = async (req, res) => {
       status: "assigned",
     });
     if (!laptop) {
-      return res.status(404).json({ message: "Laptop not found" });
+      return res
+        .status(404)
+        .json({ message: "Laptop not found", status: false });
     }
     const assignment = new AssignmentModel(req.body);
     await assignment.save();
@@ -22,24 +24,16 @@ const assignLaptop = async (req, res) => {
 };
 const unassignLaptop = async (req, res) => {
   try {
-    if (req.user.role === "employee") {
-      throw new Error("You are not authorized to perform this action");
-    }
-    const laptop = await LaptopModel.findByIdAndUpdate(req.body.laptop, {
-      status: "available",
-    });
-    if (!laptop) {
-      return res.status(404).json({ message: "Laptop not found" });
-    }
+    const assignid = req.params.id;
     const assignment = await AssignmentModel.findByIdAndUpdate(
-      req.params.id,
-      { returnedAt: Date.now(), status: "unassigned" },
+      assignid,
+      { returnedAt: Date.now() },
       { new: true }
     );
-    if (!assignment) {
-      return res.status(404).json({ message: "Assignment not found" });
-    }
-    res.status(200).json({ message: "Assignment deleted" });
+    await LaptopModel.findByIdAndUpdate(assignment.laptop, {
+      status: "available",
+    });
+    res.status(200).json({ message: "unassigned succesfully", status: true });
   } catch (err) {
     res.status(500).json({ message: err.message, status: false });
   }

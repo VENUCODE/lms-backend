@@ -91,10 +91,10 @@ const deleteLaptop = async (req, res) => {
 const getUnassigned = async (req, res) => {
   try {
     const laptops = await LaptopModel.find({ status: "available" });
-    res.json(laptops).status(200);
+    res.json({ laptops, status: true }).status(200);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message, status: false });
   }
 };
 module.exports = {
