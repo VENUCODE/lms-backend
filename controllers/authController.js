@@ -2,11 +2,13 @@ const { AuthModel } = require("../models/index");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
+
 const Login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    // console.log(req.body)
+    const { email, password, role } = req.body;
     const user = await AuthModel.findOne({ email });
-    if (!user) {
+    if (!user || user.role !== role) {
       throw new Error("User not found");
     }
     const isMatch = await bcrypt.compare(password, user.password);
@@ -20,7 +22,17 @@ const Login = async (req, res) => {
       },
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
-    res.status(200).json({ token, message: "Login successful" });
+    res
+      .status(200)
+      .json({
+        token,
+        message: "Login successful",
+        user: {
+          email: user.email,
+          role: user.role,
+          department: user.department,
+        },
+      });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

@@ -1,4 +1,4 @@
-const { AssignmentModel, LaptopModel } = require("../models/index");
+const { AssignmentModel, LaptopModel,LogModel } = require("../models/index");
 
 const assignLaptop = async (req, res) => {
   try {

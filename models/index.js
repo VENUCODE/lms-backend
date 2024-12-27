@@ -49,7 +49,7 @@ const assignmentSchema = new Schema(
     laptop: { type: Schema.Types.ObjectId, ref: "Laptop" },
     employee: { type: Schema.Types.ObjectId, ref: "Auth" },
     assignedAt: { type: Date, default: Date.now },
-    returnedAt: { type: Date,default: null },
+    returnedAt: { type: Date, default: null },
   },
   { timestamps: true, strict: false, collection: "assignments" }
 );
@@ -61,7 +61,11 @@ const issueSchema = new Schema(
     laptop: { type: Schema.Types.ObjectId, ref: "Laptop" },
     description: { type: String, required: true },
     priority: { type: String, enum: ["low", "medium", "high"], default: "low" },
-    status: { type: String, enum: ["raised","resolved", "pending"], default: "raised" },
+    status: {
+      type: String,
+      enum: ["raised", "resolved", "pending"],
+      default: "raised",
+    },
     reportedBy: { type: Schema.Types.ObjectId, ref: "Auth" },
     reportedAt: { type: Date, default: Date.now },
   },
@@ -70,7 +74,6 @@ const issueSchema = new Schema(
 
 const IssueModel = mongoose.model("Issue", issueSchema);
 
-// maintenance: id, laptopId, description, status, cost, loggedAt.
 const maintenanceSchema = new Schema(
   {
     laptop: { type: Schema.Types.ObjectId, ref: "Laptop" },
@@ -87,6 +90,31 @@ const maintenanceSchema = new Schema(
 );
 
 const MaintenanceModel = mongoose.model("Maintenance", maintenanceSchema);
+
+//log schema to maintain history of assign,unassign,issueUpdate,laptop add,laptop delete, laptop update
+const logSchema = new mongoose.Schema(
+  {
+    action: { type: String, required: true },
+    category: {
+      type: String,
+      enum: [
+        "assign",
+        "unassign",
+        "issueUpdate",
+        "laptop add",
+        "laptop delete",
+        "laptop update",
+      ],
+    },
+    laptopId: { type: Schema.Types.ObjectId, ref: "Laptop" },
+    description: { type: String },
+    loggedAt: { type: Date, default: Date.now },
+  },
+  { strict: false, timestamps: true, collection: "logs" }
+);
+
+const LogModel = mongoose.model("Logs", logSchema);
+
 module.exports = {
   LaptopModel,
   AuthModel,
@@ -94,6 +122,7 @@ module.exports = {
   AssignmentModel,
   IssueModel,
   MaintenanceModel,
+  LogModel,
 };
 
 LaptopSchema.pre("remove", async function (next) {
@@ -106,7 +135,6 @@ LaptopSchema.pre("remove", async function (next) {
     next(err);
   }
 });
-
 LaptopModel.on("remove", function (doc) {
   console.log(`Laptop with id ${doc._id} has been removed.`);
 });

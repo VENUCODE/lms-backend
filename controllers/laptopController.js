@@ -19,15 +19,33 @@ const getLaptopById = async (req, res) => {
 };
 const addNewLaptop = async (req, res) => {
   try {
+    const prev = await LaptopModel.findOne({
+      serialNumber: req.body.serialNumber,
+    });
+
+    if (prev) {
+      return res
+        .status(400)
+        .json({ message: "Laptop already Exists", status: false });
+    }
+
     const laptop = new LaptopModel(req.body);
     await laptop.save();
-    res.json(laptop).status(201);
+
+    return res.status(201).json({ status: true, message: "Laptop added" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message, status: false });
   }
 };
+
 const updateLaptop = async (req, res) => {
   try {
+    if (req.user.role !== "admin") {
+      return res.status(401).json({
+        message: "Unauthorized access 3 " + req.user.role,
+        status: false,
+      });
+    }
     const laptop = await LaptopModel.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -38,10 +56,14 @@ const updateLaptop = async (req, res) => {
     );
 
     if (!laptop) {
-      return res.status(404).json({ message: "Laptop not found" });
+      return res
+        .status(404)
+        .json({ message: "Laptop not found", status: false });
     }
 
-    res.status(200).json(laptop);
+    res
+      .status(200)
+      .json({ message: "Laptop updated Successfully", status: true });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
@@ -50,11 +72,16 @@ const updateLaptop = async (req, res) => {
 
 const deleteLaptop = async (req, res) => {
   try {
+    if (req.user.role !== "admin") {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized access 3", status: false });
+    }
     const laptop = await LaptopModel.findByIdAndDelete(req.params.id);
     if (!laptop) {
       return res.status(404).json({ message: "Laptop not found" });
     }
-    res.status(200).json({ message: "Laptop deleted" });
+    res.status(200).json({ message: "Laptop deleted", status: true });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
@@ -76,4 +103,5 @@ module.exports = {
   addNewLaptop,
   updateLaptop,
   getUnassigned,
+  deleteLaptop,
 };

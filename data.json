@@ -1,7 +1,8 @@
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2ZDQyZmQ2N2EwYmQxYTIyYjEwZjkyIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTczNTIxNDAxNX0.FpS2hkKetMJ67BYJq4LjwYnNFnOsIaTaZaA-RXcfWFA",
-  "message": "Login successful"
-}
+  "token": "
+  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2ZDQyZmQ2N2EwYmQxYTIyYjEwZjkyIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTczNTIxNDAxNX0.FpS2hkKetMJ67BYJq4LjwYnNFnOsIaTaZaA-RXcfWFA
+  ",
+
 //unassigned laptops
 [
   {
@@ -33,3 +34,163 @@
   "laptop":"676d331678e374a66af48b0f",
   "employee":"676d5288c184b194f0d9ddc5"
 }
+
+//employee
+{
+  "name": "Ethan",
+  "email": "ethan@gmail.com",
+  "password": "ethan123",
+  "role": "employee",
+  "department": "Marketing"
+}
+{
+  "name": "Liam",
+  "email": "liam@gmail.com",
+  "password": "liam123",
+  "role": "employee",
+  "department": "Sales"
+}
+{
+  "name": "Noah",
+  "email": "noah@gmail.com",
+  "password": "noah123",
+  "role": "employee",
+  "department": "IT"
+}
+{
+  "name": "Oliver",
+  "email": "oliver@gmail.com",
+  "password": "oliver123",
+  "role": "employee",
+  "department": "Finance"
+}
+
+//laptops
+{
+  "brand": "Apple",
+  "model": "MacBook Pro",
+  "serialNumber": "67890XYs",
+  "status": "available",
+  "purchaseDate": "2021-11-20T00:00:00.000Z"
+},
+{
+  "brand": "Lenovo",
+  "model": "ThinkPad X1 Carbon",
+  "serialNumber": "44556GHI",
+  "status": "available",
+  "purchaseDate": "2021-07-10T00:00:00.000Z",
+},
+{
+  "brand": "Dell",
+  "model": "Inspiron 15",
+  "serialNumber": "12345ABC",
+  "status": "available",
+  "purchaseDate": "2020-01-01T00:00:00.000Z"
+},
+{
+  "brand": "HP",
+  "model": "Envy x360",
+  "serialNumber": "98765DEF",
+  "status": "available",
+  "purchaseDate": "2020-06-01T00:00:00.000Z"
+},
+{
+  "brand": "Asus",
+  "model": "ZenBook 14",
+  "serialNumber": "11111JKL",
+  "status": "available",
+  "purchaseDate": "2020-09-01T00:00:00.000Z"
+},
+{
+  "brand": "Microsoft",
+  "model": "Surface Laptop",
+  "serialNumber": "22222MNO",
+  "status": "available",
+  "purchaseDate": "2020-12-01T00:00:00.000Z"
+},
+{
+  "brand": "Acer",
+  "model": "Aspire 5",
+  "serialNumber": "33333PQR",
+  "status": "available",
+  "purchaseDate": "2021-03-01T00:00:00.000Z"
+}
+
+//maintenance Log 
+const exampleData = {
+  laptops: [
+    {
+      brand: "Dell",
+      model: "XPS 13",
+      serialNumber: "12345ABC",
+      status: "available",
+      purchaseDate: new Date("2022-01-15"),
+    },
+    {
+      brand: "Apple",
+      model: "MacBook Pro",
+      serialNumber: "67890XYZ",
+      status: "assigned",
+      purchaseDate: new Date("2021-05-20"),
+    },
+  ],
+  auths: [
+    {
+      name: "John Doe",
+      email: "john.doe@example.com",
+      password: "password123",
+      role: "admin",
+      department: "IT",
+    },
+    {
+      name: "Jane Smith",
+      email: "jane.smith@example.com",
+      password: "password456",
+      role: "employee",
+      department: "HR",
+    },
+  ],
+  requests: [
+    {
+      employee: "ObjectId('60c72b2f9b1e8a5f1c8e4d3b')",
+      status: "pending",
+      description: "Request for a new laptop",
+    },
+  ],
+  assignments: [
+    {
+      laptop: "ObjectId('60c72b2f9b1e8a5f1c8e4d3c')",
+      employee: "ObjectId('60c72b2f9b1e8a5f1c8e4d3b')",
+      assignedAt: new Date(),
+      returnedAt: null,
+    },
+  ],
+  issues: [
+    {
+      laptop: "ObjectId('60c72b2f9b1e8a5f1c8e4d3c')",
+      description: "Screen flickering",
+      priority: "high",
+      status: "raised",
+      reportedBy: "ObjectId('60c72b2f9b1e8a5f1c8e4d3b')",
+      reportedAt: new Date(),
+    },
+  ],
+  maintenances: [
+    {
+      laptop: "ObjectId('60c72b2f9b1e8a5f1c8e4d3c')",
+      description: "Battery replacement",
+      status: "pending",
+      cost: 100,
+      loggedAt: new Date(),
+    },
+  ],
+  logs: [
+    {
+      action: "assign",
+      category: "assign",
+      laptopId: "ObjectId('60c72b2f9b1e8a5f1c8e4d3c')",
+      description: "Assigned to John Doe",
+      loggedAt: new Date(),
+    },
+  ],
+};

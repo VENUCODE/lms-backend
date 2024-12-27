@@ -9,9 +9,19 @@ const authMiddleware = require("./middlewares/AuthMiddleware");
 const adminActionRoutes = require("./routes/adminActionRoutes");
 dotenv.config({ path: ".env" });
 
-const app = express();
-app.use(express.json());
+const cors = require("cors");
 
+const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+  })
+);
+app.use(express.json());
 app.use("/api/employee", employeeRoutes);
 app.use("/api/auth", authRoutes);
 
@@ -39,5 +49,5 @@ const startServer = async () => {
 startServer();
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.json(req.body).status(200);
 });
