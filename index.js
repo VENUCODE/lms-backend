@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
 const authMiddleware = require("./middlewares/AuthMiddleware");
 const adminActionRoutes = require("./routes/adminActionRoutes");
+const dashboardRoutes = require("./routes/employeeDashboardRoutes");
 dotenv.config({ path: ".env" });
 
 const cors = require("cors");
@@ -28,6 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/laptops", authMiddleware, laptopRoutes);
 
 app.use("/api/admin/", authMiddleware, adminActionRoutes);
+app.use("/api/dashboard", authMiddleware, dashboardRoutes);
 
 const port = process.env.PORT || 8000;
 

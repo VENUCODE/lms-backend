@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next) => {
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res
-        .message({ message: "Unauthorized Access 2", status: false })
+        .json({ message: "Unauthorized Access 2", status: false })
         .status(401);
     }
     req.user = decoded.user;

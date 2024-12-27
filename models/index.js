@@ -37,13 +37,13 @@ const requestSchema = new Schema(
       enum: ["approved", "pending", "rejected"],
       default: "pending",
     },
+    closedOn: { type: Date, default: null },
     description: { type: String, required: true },
   },
   { timestamps: true, strict: false, collection: "requests" }
 );
 const RequestModel = mongoose.model("Request", requestSchema);
 
-//assignments: id, laptopId, employeeId, assignedAt, returnedAt.
 const assignmentSchema = new Schema(
   {
     laptop: { type: Schema.Types.ObjectId, ref: "Laptop" },
@@ -66,8 +66,9 @@ const issueSchema = new Schema(
       enum: ["raised", "resolved", "pending"],
       default: "raised",
     },
-    reportedBy: { type: Schema.Types.ObjectId, ref: "Auth" },
+    employee: { type: Schema.Types.ObjectId, ref: "Auth" },
     reportedAt: { type: Date, default: Date.now },
+    resolvedAt: { type: Date, default: null },
   },
   { timestamps: true, strict: false, collection: "issues" }
 );
