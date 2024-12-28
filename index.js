@@ -28,8 +28,8 @@ app.use("/api/auth", authRoutes);
 
 app.use("/api/laptops", authMiddleware, laptopRoutes);
 
-app.use("/api/admin/", authMiddleware, adminActionRoutes);
-app.use("/api/dashboard", authMiddleware, dashboardRoutes);
+app.use("/api/admin", authMiddleware, adminActionRoutes);
+app.use("/api/employee-action", authMiddleware, dashboardRoutes);
 
 const port = process.env.PORT || 8000;
 

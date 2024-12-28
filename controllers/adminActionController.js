@@ -74,7 +74,7 @@ const issueUpdate = async (req, res) => {
     });
     if (req.body.status === "resolved") {
       const assign = await AssignmentModel.findOne({
-        laptop: req.body.assignment,
+        laptop: laptop._id,
         returnedAt: null,
       });
       if (assign) {
@@ -82,7 +82,7 @@ const issueUpdate = async (req, res) => {
           action: "update",
           description: `Laptop ${laptop.brand}-${laptop.model}  issue resolved `,
           category: "issue resolved",
-          issueId: req.assign._id,
+          issueId: assign._id,
         });
         await AssignmentModel.findByIdAndUpdate(assign._id, {
           returnedAt: Date.now(),
@@ -128,7 +128,9 @@ const getAllRequests = async (req, res) => {
         status: "pending",
       },
       { closedOn: 0 }
-    ).populate("employee", "email");
+    )
+      .populate("employee", "email")
+      .sort({ createdAt: -1 });
     res.status(200).json({ data: requests, status: true });
   } catch (error) {
     res.status(500).json({ message: error.message, status: false });

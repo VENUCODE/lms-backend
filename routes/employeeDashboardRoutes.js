@@ -6,13 +6,17 @@ const {
   getPendingRequestsByEmployeeId,
   getRequestsByEmployeeId,
   reportLaptopIssue,
+  returnLaptop,
+  getReportsOfEmployee,
 } = require("../controllers/employeeDashboardControllers");
 
 const router = express.Router();
-router.get("/assigned/:id", getAssignmentsByEmployeeId);
-router.get("/history/:id", getEmployeeHistory);
-router.get("/pending-requests/:id", getPendingRequestsByEmployeeId);
-router.get("/all-requests/:id", getRequestsByEmployeeId);
-router.post("/report-issue/:id", reportLaptopIssue);
-router.post("/new-request/:id", newRequest);
+router.get("/assigned", getAssignmentsByEmployeeId);
+router.get("/history", getEmployeeHistory);
+router.get("/pending-requests", getPendingRequestsByEmployeeId);
+router.get("/all-requests", getRequestsByEmployeeId);
+router.post("/report-issue", reportLaptopIssue);
+router.post("/new-request", newRequest);
+router.patch("/return", returnLaptop);
+router.get("/reports", getReportsOfEmployee);
 module.exports = router;
