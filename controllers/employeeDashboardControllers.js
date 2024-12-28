@@ -44,6 +44,7 @@ const newRequest = async (req, res) => {
     const { description } = req.body;
     const request = new RequestModel({ description, employee: req.params.id });
     await request.save();
+
     res
       .status(201)
       .json({ message: "Request sent successfully", status: true });

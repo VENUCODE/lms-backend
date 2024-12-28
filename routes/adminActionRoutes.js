@@ -7,6 +7,8 @@ const {
   getAllIssues,
   getAllRequests,
   requestAction,
+  getAllLogs,
+  getCounts,
 } = require("../controllers/adminActionController");
 
 router.post("/assign", assignLaptop);
@@ -15,4 +17,6 @@ router.patch("/issue/:id", issueUpdate);
 router.get("/issues", getAllIssues);
 router.get("/requests", getAllRequests);
 router.put("/request-action/:id", requestAction);
+router.get("/getlogs", getAllLogs);
+router.get("/counts", getCounts);
 module.exports = router;

@@ -55,7 +55,6 @@ const assignmentSchema = new Schema(
 );
 const AssignmentModel = mongoose.model("Assignment", assignmentSchema);
 
-// issues: id, laptopId, description, priority, status, reportedBy,reportedAt.
 const issueSchema = new Schema(
   {
     laptop: { type: Schema.Types.ObjectId, ref: "Laptop" },
@@ -75,39 +74,32 @@ const issueSchema = new Schema(
 
 const IssueModel = mongoose.model("Issue", issueSchema);
 
-const maintenanceSchema = new Schema(
-  {
-    laptop: { type: Schema.Types.ObjectId, ref: "Laptop" },
-    description: { type: String, required: true },
-    status: {
-      type: String,
-      enum: ["completed", "pending"],
-      default: "pending",
-    },
-    cost: { type: Number },
-    loggedAt: { type: Date, default: Date.now },
-  },
-  { timestamps: true, strict: false, collection: "maintenance" }
-);
-
-const MaintenanceModel = mongoose.model("Maintenance", maintenanceSchema);
-
-//log schema to maintain history of assign,unassign,issueUpdate,laptop add,laptop delete, laptop update
 const logSchema = new mongoose.Schema(
   {
-    action: { type: String, required: true },
+    action: {
+      type: String,
+      enum: ["create", "update", "delete", "closed", "approved", "rejected"],
+      required: true,
+    },
     category: {
       type: String,
       enum: [
-        "assign",
-        "unassign",
-        "issueUpdate",
+        "assigned laptop",
+        "unassigned laptop",
+        "issue accepted",
+        "issue resolved",
         "laptop add",
         "laptop delete",
         "laptop update",
+        "request approved",
+        "request rejected",
       ],
     },
     laptopId: { type: Schema.Types.ObjectId, ref: "Laptop" },
+    employeeId: { type: Schema.Types.ObjectId, ref: "Auth" },
+    assignId: { type: Schema.Types.ObjectId, ref: "Assignment" },
+    issueId: { type: Schema.Types.ObjectId, ref: "Issue" },
+    requestId: { type: Schema.Types.ObjectId, ref: "Request" },
     description: { type: String },
     loggedAt: { type: Date, default: Date.now },
   },
@@ -122,7 +114,6 @@ module.exports = {
   RequestModel,
   AssignmentModel,
   IssueModel,
-  MaintenanceModel,
   LogModel,
 };
 

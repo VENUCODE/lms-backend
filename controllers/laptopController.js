@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const { LaptopModel } = require("../models/index");
+const createLog = require("../utils/logs");
 const getAllLaptops = async (req, res) => {
   try {
     const laptops = await LaptopModel.find();
@@ -31,6 +32,12 @@ const addNewLaptop = async (req, res) => {
 
     const laptop = new LaptopModel(req.body);
     await laptop.save();
+    await createLog({
+      action: "create",
+      description: `New laptop ${laptop.brand}-${laptop.model} added `,
+      category: "laptop add",
+      laptopId: laptop._id,
+    });
 
     return res.status(201).json({ status: true, message: "Laptop added" });
   } catch (err) {
@@ -60,7 +67,12 @@ const updateLaptop = async (req, res) => {
         .status(404)
         .json({ message: "Laptop not found", status: false });
     }
-
+    await createLog({
+      action: "update",
+      description: `Laptop ${laptop.brand}-${laptop.serialNumber} updated `,
+      category: "laptop update",
+      laptopId: laptop._id,
+    });
     res
       .status(200)
       .json({ message: "Laptop updated Successfully", status: true });
@@ -81,6 +93,11 @@ const deleteLaptop = async (req, res) => {
     if (!laptop) {
       return res.status(404).json({ message: "Laptop not found" });
     }
+    await createLog({
+      action: "delete",
+      description: `Laptop ${laptop.brand}-${laptop.serialNumber}  deleted `,
+      category: "laptop delete",
+    });
     res.status(200).json({ message: "Laptop deleted", status: true });
   } catch (err) {
     console.log(err);
