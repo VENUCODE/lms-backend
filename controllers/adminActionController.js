@@ -89,8 +89,15 @@ const issueUpdate = async (req, res) => {
         });
       }
     }
-
-    const issue = await IssueModel.findByIdAndUpdate(req.params.id, req.body);
+    let issue;
+    if (req.body.status === "resolved") {
+      issue = await IssueModel.findByIdAndUpdate(req.params.id, {
+        ...req.body,
+        resolvedAt: Date.now(),
+      });
+    } else {
+      issue = await IssueModel.findByIdAndUpdate(req.params.id, req.body);
+    }
     if (!issue) {
       return res
         .status(404)

@@ -28,10 +28,9 @@ const getEmployeeHistory = async (req, res) => {
     const assignments = await AssignmentModel.find(
       {
         employee: employeeId,
-        returnedAt: { $ne: null },
       },
       { employee: 0 }
-    ).populate("laptop", "brand model serialNumber");
+    ).populate("laptop", "brand model serialNumber status");
 
     res.status(200).json({ data: assignments, status: true });
   } catch (error) {
