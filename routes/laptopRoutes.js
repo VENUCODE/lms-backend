@@ -6,7 +6,7 @@ const {
   updateLaptop,
   deleteLaptop,
   getUnassigned,
-} = require("../controllers/LaptopController");
+} = require("../controllers/laptopController");
 router.get("/getall", getAllLaptops);
 router.get("/getunassigned", getUnassigned);
 router.get("/get/:id", getLaptopById);
